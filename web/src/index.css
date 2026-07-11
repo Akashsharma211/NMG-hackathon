@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Primary variables */
+  --primary-val: #0B3D91;
+  --primary-hover-val: #082d6b;
+  --primary-light-val: #eef2f8;
+
+  /* Theme color mapping */
+  --bg-white: #ffffff;
+  --slate-50-val: #f8fafc;
+  --slate-100-val: #f1f5f9;
+  --slate-200-val: #e2e8f0;
+  --slate-300-val: #cbd5e1;
+  --slate-400-val: #94a3b8;
+  --slate-500-val: #64748b;
+  --slate-600-val: #475569;
+  --slate-700-val: #334155;
+  --slate-800-val: #1e293b;
+  --slate-900-val: #0f172a;
+}
+
+html.dark {
+  /* Adjust primary blue in dark mode to royal blue to achieve AA contrast on dark slate */
+  --primary-val: #3b82f6;
+  --primary-hover-val: #60a5fa;
+  --primary-light-val: #1e293b;
+
+  /* Keep contrast hierarchy clean in dark mode */
+  --bg-white: #121a2e;        /* Premium deep indigo-slate cards */
+  --slate-50-val: #0b0f19;    /* Clean deep midnight background */
+  --slate-100-val: #1e293b;   /* Soft slate-800 sections */
+  --slate-200-val: #273549;   /* Borders slate-700 */
+  --slate-300-val: #334155;   /* Borders slate-600 */
+  --slate-400-val: #64748b;   /* Muted captions */
+  --slate-500-val: #94a3b8;   /* Secondary labels */
+  --slate-600-val: #cbd5e1;   /* Body text */
+  --slate-700-val: #e2e8f0;   /* Accent titles */
+  --slate-800-val: #f1f5f9;   /* Headings */
+  --slate-900-val: #f8fafc;   /* Headings bold */
+}
+
+body.high-contrast-mode {
+  --primary-val: #ffff00;
+  --primary-hover-val: #ffff00;
+  --primary-light-val: #000000;
+  
+  --bg-white: #000000;
+  --slate-50-val: #000000;
+  --slate-100-val: #000000;
+  --slate-200-val: #ffff00;
+  --slate-300-val: #ffff00;
+  --slate-400-val: #ffffff;
+  --slate-500-val: #ffffff;
+  --slate-600-val: #ffffff;
+  --slate-700-val: #ffffff;
+  --slate-800-val: #ffffff;
+  --slate-900-val: #ffffff;
+}
+
+@theme {
+  --color-primary: var(--primary-val);
+  --color-primary-hover: var(--primary-hover-val);
+  --color-primary-light: var(--primary-light-val);
+  
+  --color-secondary-DEFAULT: #1F2937;
+  --color-secondary-light: #F8FAFC;
+  --color-secondary-border: #E5E7EB;
+  
+  --color-accent-DEFAULT: #FF9933;
+  --color-accent-hover: #e07e1b;
+  --color-accent-light: #fff5eb;
+
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-error: #DC2626;
+
+  --font-sans: 'Inter', sans-serif;
+  
+  --radius-gov: 12px;
+
+  --shadow-gov-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-gov-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-gov-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+
+  /* Dynamically bind Tailwind colors to custom theme variables */
+  --color-white: var(--bg-white);
+  --color-slate-50: var(--slate-50-val);
+  --color-slate-100: var(--slate-100-val);
+  --color-slate-200: var(--slate-200-val);
+  --color-slate-300: var(--slate-300-val);
+  --color-slate-400: var(--slate-400-val);
+  --color-slate-500: var(--slate-500-val);
+  --color-slate-600: var(--slate-600-val);
+  --color-slate-700: var(--slate-700-val);
+  --color-slate-800: var(--slate-800-val);
+  --color-slate-900: var(--slate-900-val);
+}
+
+@layer base {
+  body {
+    background-color: var(--slate-50-val);
+    color: var(--slate-900-val);
+    @apply antialiased selection:bg-blue-100 selection:text-blue-900;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Custom government theme focus rings for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-[#FF9933];
+  }
+}
+
+/* Custom styles for our e-Visa application */
+.gov-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--slate-200-val);
+  @apply rounded-gov shadow-gov-sm transition-all duration-200 hover:shadow-gov-md;
+}
+
+.floating-label-group {
+  @apply relative;
+}
+
+.floating-label-group input:placeholder-shown ~ label,
+.floating-label-group select:placeholder-shown ~ label {
+  @apply top-3.5 left-4 text-slate-400 text-base pointer-events-none transition-all duration-200;
+}
+
+.floating-label-group input:focus ~ label,
+.floating-label-group select:focus ~ label,
+.floating-label-group input:not(:placeholder-shown) ~ label,
+.floating-label-group select:not([value=""]) ~ label {
+  @apply top-1.5 left-4 text-xs text-primary font-medium;
+}
+
+.floating-label-group input,
+.floating-label-group select {
+  background-color: var(--bg-white);
+  border: 1px solid var(--slate-200-val);
+  color: var(--slate-900-val);
+  @apply pt-5 pb-1.5 px-4 block w-full rounded-lg hover:border-slate-400 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200;
+}
+
+/* Accessibility font size layout adjustments */
+html.text-large .-mt-12,
+html.text-large .lg\:-mt-16 {
+  margin-top: -1.5rem !important;
+}
+
+html.text-xlarge .-mt-12,
+html.text-xlarge .lg\:-mt-16 {
+  margin-top: 0.5rem !important;
+}
